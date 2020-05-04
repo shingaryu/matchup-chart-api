@@ -1,0 +1,16 @@
+{
+  "name": "matchup-chart-api",
+  "version": "1.0.0",
+  "description": "API service to serve matchup evalution values of pokemon",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shingaryu",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
