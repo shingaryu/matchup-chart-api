@@ -1,8 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const { PokemonStrategiesService } = require('../services/pokemonStrategiesService');
 
+const router = express.Router();
+const pokemonStrategiesService = new PokemonStrategiesService();
+  
 router.get('/', async (req, res) => {
-  res.send('get pokemon strategies all');
+  const data = await pokemonStrategiesService.getPokemonStrategies();
+  res.send(data);
 });
 
 module.exports = router;
