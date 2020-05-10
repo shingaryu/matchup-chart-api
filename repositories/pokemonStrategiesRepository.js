@@ -1,31 +1,23 @@
-const mysql = require('mysql');
+const { MySqlRepositoryBase } = require('./mysqlRepositoryBase.js');
 
-class PokemonStrategiesRepository {
+class PokemonStrategiesRepository extends MySqlRepositoryBase {
   constructor() {
-    this.connection = mysql.createConnection({
-      host     : process.env.MYSQL_HOST,
-      user     : process.env.MYSQL_USER,
-      password : process.env.MYSQL_PASSWORD,
-      database : 'pokemon_matchup_store'
-    });
-
-    this.connection.connect();
+    super();
   }
 
   getPokemonStrategies() {
     return this.sqlQueryPromise('SELECT * FROM pokemon_matchup_store.pokemon_strategies;');
   }
 
-  sqlQueryPromise(statement) {
-    return new Promise((resolve, reject) => {
-      this.connection.query(statement, (err, results, fields) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(results, fields);
-        }
-      });
-    });
+  getPokemonStrategiesWithName() {
+    const sql = `
+      SELECT str.id, spe.name
+      FROM pokemon_matchup_store.pokemon_strategies as str
+      INNER JOIN pokemon_species as spe
+      ON str.species_id = spe.id
+    `
+
+    return this.sqlQueryPromise(sql);
   }
 }
 

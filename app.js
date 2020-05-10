@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const pokemonSpeciesController = require('./controllers/pokemonSpeciesController');
 const pokemonStrategiesController = require('./controllers/pokemonStrategiesController');
 
 const app = express();
@@ -23,4 +24,5 @@ app.listen(8000, function() {
   console.log('Example app listening on port 8000!');
 });
 
+app.use('/pokemonSpecies', pokemonSpeciesController);
 app.use('/pokemonStrategies', pokemonStrategiesController);
