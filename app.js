@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const pokemonSpeciesController = require('./controllers/pokemonSpeciesController');
 const pokemonStrategiesController = require('./controllers/pokemonStrategiesController');
+const strengthVectorsController = require('./controllers/strengthVectorsController');
 
 const app = express();
 app.use(express.json())
@@ -26,3 +27,4 @@ app.listen(8000, function() {
 
 app.use('/pokemonSpecies', pokemonSpeciesController);
 app.use('/pokemonStrategies', pokemonStrategiesController);
+app.use('/strengthVectors', strengthVectorsController);
