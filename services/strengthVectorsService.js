@@ -14,7 +14,8 @@ class StrengthVectorsService {
     const evalTable = [];
     strategies.forEach(x => {
      const row = [];
-     strategies.forEach(y => row.push('NULL')); 
+    //  strategies.forEach(y => row.push('NULL')); 
+      strategies.forEach(y => row.push(0)); // should we track 'not calculated yet' by a specific symbol? 
       evalTable.push(row);
     })
     
