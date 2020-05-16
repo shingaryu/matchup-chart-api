@@ -15,6 +15,7 @@ class PokemonStrategiesRepository extends MySqlRepositoryBase {
       FROM pokemon_matchup_store.pokemon_strategies as str
       INNER JOIN pokemon_species as spe
       ON str.species_id = spe.id
+      ORDER BY spe.name, str.id
     `
 
     return this.sqlQueryPromise(sql);
