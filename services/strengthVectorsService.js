@@ -7,10 +7,31 @@ class StrengthVectorsService {
     this.matchupEvaluationRepository = new MatchupEvaluationRepository();
   }
 
-  async getStrengthVectorsByStrategies() {
+  async getStrengthVectorsByStrategiesInCsv() {
     const strategies = await this.pokemonStrategiesRepository.getPokemonStrategiesWithName();
     const evaluations = await this.matchupEvaluationRepository.getMatchupEvaluations();
+    const evalTable = this.rectangleStrengthTable(strategies, evaluations);
 
+    const csvText = this.evalTableCsvText(evalTable, strategies.map(x => x.name), strategies.map(x => x.name));
+    return csvText;
+  }
+
+  async getStrengthVectorsByStrategiesInJson() {
+    const strategies = await this.pokemonStrategiesRepository.getPokemonStrategiesWithName();
+    const evaluations = await this.matchupEvaluationRepository.getMatchupEvaluations();
+    const evalTable = this.rectangleStrengthTable(strategies, evaluations);
+
+    const columns = strategies.map(x => ({ strategyId: x.id, species: x.name }));
+    const rows = strategies.map((x, i)=> ({
+      strategyId: x.id, 
+      species: x.name,
+      values: evalTable[i]
+    }))
+
+    return { columns, rows };
+  }
+
+  rectangleStrengthTable(strategies, evaluations) {
     const evalTable = [];
     strategies.forEach(x => {
      const row = [];
@@ -28,9 +49,8 @@ class StrengthVectorsService {
       evalTable[rowIndex][columnIndex] = evaluation.value;
       evalTable[columnIndex][rowIndex] = -evaluation.value;
     });
-  
-    const csvText = this.evalTableCsvText(evalTable, strategies.map(x => x.name), strategies.map(x => x.name));
-    return csvText;
+
+    return evalTable;
   }
 
   evalTableCsvText(evalValueTable, rowHeader, columnHeader) {
