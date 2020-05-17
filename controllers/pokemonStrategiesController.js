@@ -5,7 +5,12 @@ const router = express.Router();
 const pokemonStrategiesService = new PokemonStrategiesService();
   
 router.get('/', async (req, res) => {
-  const data = await pokemonStrategiesService.getPokemonStrategies();
+  let data = null;
+  if (req.query.speciesInfo && req.query.speciesInfo.toLowerCase() === 'true') {
+    data = await pokemonStrategiesService.getPokemonStrategiesWithSpecies();
+  } else {
+    data = await pokemonStrategiesService.getPokemonStrategies();
+  }
   res.send(data);
 });
 
