@@ -21,8 +21,8 @@ app.get('/', function(req, res) {
   res.send('Welcome to matchup-chart-api!');
 });
 
-app.listen(8000, function() {
-  console.log('Example app listening on port 8000!');
+app.listen(process.env.PORT || 5000, function() {
+  console.log(`app listening on port ${process.env.PORT || 5000}!`);
 });
 
 app.use('/pokemonSpecies', pokemonSpeciesController);
