@@ -2,13 +2,19 @@ const { Client } = require('pg')
 
 class PostgresRepositoryBase {
   constructor() {
-    this.client = new Client({
-      user: process.env.POSTGRES_USER,
-      host: process.env.POSTGRES_HOST,
-      database: 'pokemon_matchup_store',
-      password: process.env.POSTGRES_PASSWORD,
-      port: 5432,
-    });
+    // on heroku environment
+    if (process.env.NODE_ENV === 'production') {
+      this.client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false
+        }
+      });
+    } else {
+      this.client = new Client({
+        connectionString: process.env.DATABASE_URL,
+      });
+    }
 
     this.client.connect();
   }
