@@ -1,12 +1,12 @@
-const { MySqlRepositoryBase } = require('./mysqlRepositoryBase.js');
+const { PostgresRepositoryBase } = require('./postgresRepositoryBase');
 
-class PokemonSpeciesRepository extends MySqlRepositoryBase {
+class PokemonSpeciesRepository extends PostgresRepositoryBase {
   constructor() {
     super();
   }
 
   getPokemonSpecies() {
-    return this.sqlQueryPromise('SELECT * FROM pokemon_matchup_store.pokemon_species;');
+    return this.sqlQueryPromise('SELECT * FROM pokemon_species;');
   }
 }
 

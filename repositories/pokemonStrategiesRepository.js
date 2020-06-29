@@ -1,12 +1,12 @@
-const { MySqlRepositoryBase } = require('./mysqlRepositoryBase.js');
+const { PostgresRepositoryBase } = require('./postgresRepositoryBase');
 
-class PokemonStrategiesRepository extends MySqlRepositoryBase {
+class PokemonStrategiesRepository extends PostgresRepositoryBase {
   constructor() {
     super();
   }
 
   getPokemonStrategies() {
-    return this.sqlQueryPromise('SELECT * FROM pokemon_matchup_store.pokemon_strategies;');
+    return this.sqlQueryPromise('SELECT * FROM pokemon_strategies;');
   }
 
   getPokemonStrategiesWithSpecies() {
@@ -40,7 +40,7 @@ class PokemonStrategiesRepository extends MySqlRepositoryBase {
         str.level as level ,
         str.happiness as happiness ,
         str.shiny as shiny 
-      FROM pokemon_matchup_store.pokemon_strategies as str
+      FROM pokemon_strategies as str
       INNER JOIN pokemon_species as spe
       ON str.species_id = spe.id
       ORDER BY spe.name, str.id    
@@ -52,7 +52,7 @@ class PokemonStrategiesRepository extends MySqlRepositoryBase {
   getPokemonStrategiesWithName() {
     const sql = `
       SELECT str.id, spe.name
-      FROM pokemon_matchup_store.pokemon_strategies as str
+      FROM pokemon_strategies as str
       INNER JOIN pokemon_species as spe
       ON str.species_id = spe.id
       ORDER BY spe.name, str.id
