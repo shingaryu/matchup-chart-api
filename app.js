@@ -4,6 +4,7 @@ const express = require('express');
 const pokemonSpeciesController = require('./controllers/pokemonSpeciesController');
 const pokemonStrategiesController = require('./controllers/pokemonStrategiesController');
 const strengthVectorsController = require('./controllers/strengthVectorsController');
+const damageMatchupsController = require('./controllers/damageMatchupsController');
 
 const app = express();
 app.use(express.json())
@@ -28,3 +29,4 @@ app.listen(process.env.PORT || 5000, function() {
 app.use('/pokemonSpecies', pokemonSpeciesController);
 app.use('/pokemonStrategies', pokemonStrategiesController);
 app.use('/strengthVectors', strengthVectorsController);
+app.use('/damageMatchups', damageMatchupsController);
